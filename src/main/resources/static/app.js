@@ -55,9 +55,9 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
 
-        stompClient.send("/chat/" + $.trim($("#sala").val()), {}, JSON.stringify({'name': 'Nova Conexao'}));
+        stompClient.send("/chat/" + $.trim($("#sala").val().toUpperCase()), {}, JSON.stringify({'name': 'Nova Conexao'}));
 
-        stompClient.subscribe('/broadcast/' + $.trim($("#sala").val()), function (greeting) {
+        stompClient.subscribe('/broadcast/' + $.trim($("#sala").val().toUpperCase()), function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
         });
 
@@ -79,7 +79,7 @@ function disconnect() {
 
 function sendName() {
 
-    stompClient.send("/chat/" + $.trim($("#sala").val()), {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/chat/" + $.trim($("#sala").val().toUpperCase()), {}, JSON.stringify({'name': $("#name").val()}));
 
     $("#name").val(null);
     $("#name").focus();
