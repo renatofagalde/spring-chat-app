@@ -1,29 +1,40 @@
 var stompClient = null;
 
+function conversationHide() {
+
+    $("#conversation").hide();
+    $( "#sala" ).focus();
+}
+
 function setConnected(connected) {
 
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
     $("#send").prop("disabled", !connected);
     $("#name").prop("disabled", !connected);
-
+    $("#sala").prop("disabled", !connected);
 
 
     if (connected) {
 
         $("#conversation").show();
-        console.log("Valor de connectd, dentro do if-true : " + connected);
-
         $("#name").prop("disabled", !connected);
         $("#send").prop("disabled", !connected);
+        $("#sala").prop("disabled", connected);
 
     }
     else {
 
-        console.log("Valor de connectd, dentro do if-false : " + connected);
         $("#conversation").hide();
+
         $("#send").prop("disabled", !connected);
         $("#name").prop("disabled", !connected);
+        $("#sala").prop("disabled", connected);
+
+        $("#sala").val(null);
+        $("#name").val(null);
+
+        conversationHide();
     }
 
 
@@ -32,7 +43,7 @@ function setConnected(connected) {
 
 function connect() {
 
-    if ( $.trim( $("#sala").val().length ) <3 ) {
+    if ($.trim($("#sala").val().length) < 3) {
         alert('nome invalido');
         return;
     }
@@ -44,12 +55,18 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
 
-        stompClient.send("/chat/"+$.trim($("#sala").val()), {}, JSON.stringify({'name': 'Nova Conexao'}));
+        stompClient.send("/chat/" + $.trim($("#sala").val()), {}, JSON.stringify({'name': 'Nova Conexao'}));
 
-        stompClient.subscribe('/broadcast/'+$.trim($("#sala").val()), function (greeting) {
+        stompClient.subscribe('/broadcast/' + $.trim($("#sala").val()), function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
         });
+
+
+        $("#name").focus();
+
     });
+
+
 }
 
 function disconnect() {
@@ -62,9 +79,10 @@ function disconnect() {
 
 function sendName() {
 
-    stompClient.send("/chat/"+$.trim($("#sala").val()), {}, JSON.stringify({'name': $("#name").val()}));
+    stompClient.send("/chat/" + $.trim($("#sala").val()), {}, JSON.stringify({'name': $("#name").val()}));
 
     $("#name").val(null);
+    $("#name").focus();
 }
 
 function showGreeting(message) {

@@ -51,8 +51,9 @@ public class GreetingController {
 	@SendTo("/broadcast/{sala}")
 	public Greeting greeting(HelloMessage message, @DestinationVariable String sala) throws Exception {
 
+		sala = sala.replaceAll("\\s","-").trim().toUpperCase();
 
-		Greeting greeting = new Greeting("Sala "+sala+": " + message.getName());
+		Greeting greeting = new Greeting(sala+": " + message.getName());
 		this.template.convertAndSend("/"+sala, greeting);
 
 		return greeting;

@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Hello WebSocket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/main.css" rel="stylesheet">
     <script src="/webjars/jquery/jquery.min.js"></script>
@@ -9,7 +10,8 @@
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/app.js"></script>
 </head>
-<body>
+<body onload="conversationHide();">
+
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>
@@ -44,7 +46,7 @@
             <table id="conversation" class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Greetings</th>
+                    <th>Conversa:</th>
                 </tr>
                 </thead>
                 <tbody id="greetings">
