@@ -9,23 +9,27 @@
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="/app.js"></script>
 </head>
-<body  onload="connect()">
+<body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
     enabled. Please enable
     Javascript and reload this page!</h2></noscript>
 <div id="main-content" class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
+
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="connect">WebSocket connection:</label>
+
+                    <label for="name">Nome Sala</label>
+                    <input type="text" id="sala" class="form-control" placeholder="Digite o nome da sala">
+
                     <button id="connect" class="btn btn-default" type="submit">Connect</button>
                     <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
                     </button>
                 </div>
             </form>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <form class="form-inline">
                 <div class="form-group">
                     <label for="name">Digite algo?</label>

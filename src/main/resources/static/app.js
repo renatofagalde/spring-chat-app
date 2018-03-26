@@ -1,6 +1,7 @@
 var stompClient = null;
 
 function setConnected(connected) {
+
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
     if (connected) {
@@ -13,15 +14,22 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('/gs-guide-websocket');
+
+    if ( $.trim( $("#sala").val().length ) <3 ) {
+        alert('nome invalido');
+        return;
+    }
+
+    var socket = new SockJS('/likwi-chat');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
+
         setConnected(true);
         console.log('Connected: ' + frame);
 
-        stompClient.send("/app/hello", {}, JSON.stringify({'name': 'Nova Conexao'}));
+        stompClient.send("/app/hello/"+$.trim($("#sala").val()), {}, JSON.stringify({'name': 'Nova Conexao'}));
 
-        stompClient.subscribe('/topic/greetings', function (greeting) {
+        stompClient.subscribe('/topic/greetings/'+$.trim($("#sala").val()), function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
         });
     });
@@ -36,7 +44,8 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+
+    stompClient.send("/app/hello/"+$.trim($("#sala").val()), {}, JSON.stringify({'name': $("#name").val()}));
 
     $("#name").val(null);
 }
