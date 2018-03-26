@@ -45,15 +45,15 @@ public class GreetingController {
 */
 
 	//messageMapping é o que recebe
-	@MessageMapping("/hello/{sala}")
+	@MessageMapping("/{sala}")
 
 	//send to é quem está escutando
-	@SendTo("/topic/greetings/{sala}")
+	@SendTo("/broadcast/{sala}")
 	public Greeting greeting(HelloMessage message, @DestinationVariable String sala) throws Exception {
 
 
 		Greeting greeting = new Greeting("Sala "+sala+": " + message.getName());
-		this.template.convertAndSend("/hello/"+sala, greeting);
+		this.template.convertAndSend("/"+sala, greeting);
 
 		return greeting;
 	}
