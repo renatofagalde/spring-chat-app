@@ -32,28 +32,14 @@ public class GreetingController {
 		this.template = template;
 	}
 
-
-/*
-	@MessageMapping("/hello")
-	@SendTo("/topic/greetings/escutando")
-	public Greeting greeting(HelloMessage message) throws Exception {
-
-//		Thread.sleep(1000); // simulated delay
-
-		return new Greeting("Hello, " + message.getName() + "!");
-	}
-*/
-
-	//messageMapping é o que recebe
-	@MessageMapping("/{sala}")
-
-	//send to é quem está escutando
-	@SendTo("/broadcast/{sala}")
+	@MessageMapping("/{sala}") //messageMapping é o que recebe
+	@SendTo("/broadcast/{sala}") //send to é quem está escutando
 	public Greeting greeting(HelloMessage message, @DestinationVariable String sala) throws Exception {
+
 
 		sala = sala.replaceAll("\\s","-").trim().toUpperCase();
 
-		Greeting greeting = new Greeting(sala+": " + message.getName());
+		Greeting greeting = new Greeting(sala+": "  + message.getName());
 		this.template.convertAndSend("/"+sala, greeting);
 
 		return greeting;

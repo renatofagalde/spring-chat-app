@@ -79,6 +79,8 @@ function disconnect() {
 
 function sendName() {
 
+
+
     stompClient.send("/chat/" + $.trim($("#sala").val().toUpperCase()), {}, JSON.stringify({'name': $("#name").val()}));
 
     $("#name").val(null);
@@ -86,7 +88,8 @@ function sendName() {
 }
 
 function showGreeting(message) {
-    $("#greetings").append("<tr><td>" + message + "</td></tr>");
+    $("#greetings").prepend("<tr> <td>"+ moment(Date.now()).format("HH:mm:ss") +"</td>  <td>" + message + "</td></tr>");
+    // $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
 
 $(function () {
