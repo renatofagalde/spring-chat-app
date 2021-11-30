@@ -42,6 +42,9 @@ public class GreetingController {
 		Greeting greeting = new Greeting(sala+": "  + message.getName());
 		this.template.convertAndSend("/"+sala, greeting);
 
+
+		System.out.println("greeting = " + greeting);
+
 		return greeting;
 	}
 

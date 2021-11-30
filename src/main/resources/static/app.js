@@ -49,6 +49,7 @@ function connect() {
     }
 
     var socket = new SockJS('/likwi-chat');
+    console.log("conectando na URL:" + socket.url);
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
 
@@ -78,8 +79,6 @@ function disconnect() {
 }
 
 function sendName() {
-
-
 
     stompClient.send("/chat/" + $.trim($("#sala").val().toUpperCase()), {}, JSON.stringify({'name': $("#name").val()}));
 

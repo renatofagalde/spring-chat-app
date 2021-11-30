@@ -15,13 +15,12 @@ import lombok.*;
  **/
 @Setter
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor(staticName = "of")
 @EqualsAndHashCode(of = {"name"})
 @Builder
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class HelloMessage {
 
 	private String name;
-
 
 }
