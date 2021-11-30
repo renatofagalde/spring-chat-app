@@ -35,13 +35,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 //        registry.addEndpoint("/ws").withSockJS();
 
 		RequestUpgradeStrategy upgradeStrategy = new TomcatRequestUpgradeStrategy();
-		registry.addEndpoint("/likwi-chat")
-				.withSockJS();
+//		registry.addEndpoint("/likwi-chat")
+//				.withSockJS();
 
 		registry.addEndpoint("/likwi-chat")
+				.setAllowedOrigins("*")
 				.setHandshakeHandler(new DefaultHandshakeHandler(upgradeStrategy))
-				.setAllowedOrigins("*");
+				.withSockJS();
 	}
-
-
 }

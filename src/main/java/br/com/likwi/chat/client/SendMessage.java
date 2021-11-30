@@ -60,9 +60,9 @@ public class SendMessage {
 		private void sendJsonMessage(StompSession session) {
 
 
-//			HelloMessage msg2 = new HelloMessage("teste via java client 2");
-//			session.send("/broadcast/SALA", msg2);
-//			session.send("/chat/SALA", msg2);
+			HelloMessage msg2 = new HelloMessage("teste via java client 2");
+			session.send("/broadcast/APP", msg2);
+			session.send("/chat/APP", msg2);
 
 		}
 
@@ -91,7 +91,7 @@ public class SendMessage {
 //			System.err.println("Connected! Headers:");
 //			showHeaders(connectedHeaders);
 //
-			subscribeTopic("/broadcast/SALA", session);
+			subscribeTopic("/broadcast/APP", session);
 
 			sendJsonMessage(session);
 		}
@@ -135,7 +135,7 @@ public class SendMessage {
 
 			System.out.println("helloGson = " + helloGson);
 
-			session.send("/chat/SALA", helloMessage);
+			session.send("/chat/APP", helloMessage);
 
 		}
 	}
