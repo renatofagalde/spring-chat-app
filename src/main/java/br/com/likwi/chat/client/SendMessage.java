@@ -14,6 +14,7 @@ import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -79,8 +80,8 @@ public class SendMessage {
 
 				@Override
 				public void handleFrame(StompHeaders headers, Object payload) {
-
-					System.err.println(payload.toString());
+					System.out.println(MessageFormat.format("Headers:\t {0}\nPayload:\t",
+							headers.toString(), new String((byte[]) payload)));
 				}
 			});
 		}
@@ -107,7 +108,8 @@ public class SendMessage {
 		WebSocketStompClient stompClient = new WebSocketStompClient(sockJsClient);
 		stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
-		String url = "ws://localhost:8080/likwi-chat";
+//		String url = "ws://localhost:8080/likwi-chat";
+		String url = "ws://spring-chat-app.herokuapp.com/likwi-chat";
 		String userId = "spring-" + ThreadLocalRandom.current().nextInt(1, 99);
 		StompSessionHandler sessionHandler = new MyStompSessionHandler(userId);
 		StompSession session = stompClient.connect(url, sessionHandler).get();
